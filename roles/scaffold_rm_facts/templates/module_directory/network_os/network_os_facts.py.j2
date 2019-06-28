@@ -97,7 +97,7 @@ def main():
 
     connection = Connection(module._socket_path)  # pylint: disable=W0212
     gather_subset = module.params['gather_subset']
-    gather_network_resources = module.params['gather_network_resources']
+    gather_network_resources = module.params.get('gather_network_resources')
     result = Facts().get_facts(module, connection, gather_subset,
                                gather_network_resources)
 

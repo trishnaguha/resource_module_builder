@@ -43,6 +43,9 @@ class Facts(FactsArgs, FactsBase):  # pylint: disable=R0903
         exclude_subsets = set()
         minimal_gather_subset = frozenset(['default'])
 
+        if not subsets:
+            return runable_subsets
+
         for subset in subsets:
             if subset == 'all':
                 runable_subsets.update(valid_subsets)
@@ -104,7 +107,7 @@ class Facts(FactsArgs, FactsBase):  # pylint: disable=R0903
 
         if valnetres:
             restorun = self.gen_runable(module, gather_network_resources,
-                                        valnetres)
+                                        frozenset(valnetres))
             if restorun:
                 self.ansible_facts['gather_network_resources'] = list(restorun)
                 for attr in restorun:
